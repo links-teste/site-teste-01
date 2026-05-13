@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("posts")).sort(
+  (a, b) => a.data.title.localeCompare(b.data.title),
+);
+---
+<Base title="Posts">
+  <section class="posts">
+    {posts.map((post) => (
+      <article class="post-item">
+        <a href={`/posts/${post.slug}/`}>{post.data.title}</a>
+      </article>
+    ))}
+  </section>
+</Base>
